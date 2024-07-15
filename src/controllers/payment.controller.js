@@ -4,14 +4,20 @@ const stripeSecretKey = 'sk_test_51PbG5LGXyx345BqjeFooVNFL6ta9HriQqcFToPZ2oHQNEF
 
 // Función para crear una sesión de checkout
 export const createCheckoutSession = async (req, res) => {
-    const { course, priceId } = req.body;
+    const { course, amount } = req.body;
     try {
         const YOUR_DOMAIN = 'http://localhost:8081/';
         const session = await stripe(stripeSecretKey).checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [
                 {
-                    price: priceId, // Reemplaza con tu Price ID correcto
+                    price_data: {
+                        currency: 'mxn',
+                        product_data: {
+                            name: course, // Nombre del curso
+                        },
+                        unit_amount: amount * 100, // Monto en centavos
+                    },
                     quantity: 1,
                 },
             ],
