@@ -1,22 +1,26 @@
-const stripe = require('stripe')('sk_test_51PbG5LGXyx345BqjeFooVNFL6ta9HriQqcFToPZ2oHQNEF1G2hY12t1nG1KLAgvQ6pYXmUbPObzvoJpdgRDaEoW800IKM9o8pY');
+import stripe from 'stripe';
+
+const stripeSecretKey = 'sk_test_51PbG5LGXyx345BqjeFooVNFL6ta9HriQqcFToPZ2oHQNEF1G2hY12t1nG1KLAgvQ6pYXmUbPObzvoJpdgRDaEoW800IKM9o8pY';
 
 // Función para crear una sesión de checkout
-exports.createCheckoutSession = async (req, res) => {
-  try {
-    const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price: '{{PRICE_ID}}', // Reemplaza '{{PRICE_ID}}' con el ID real de tu producto en Stripe
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: 'http://localhost:5000/success?session_id={CHECKOUT_SESSION_ID}', // URL de éxito en tu frontend
-      cancel_url: 'http://localhost:5000/canceled', // URL de cancelación en tu frontend
-    });
-
-    res.json({ sessionId: session.id }); // Devuelve el ID de la sesión de checkout a tu frontend
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+export const createCheckoutSession = async (req, res) => {
+    const { course, priceId } = req.body;
+    try {
+        const YOUR_DOMAIN = 'http://localhost:8081/';
+        const session = await stripe(stripeSecretKey).checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [
+                {
+                    price: priceId, // Reemplaza con tu Price ID correcto
+                    quantity: 1,
+                },
+            ],
+            mode: 'payment',
+            success_url: `${YOUR_DOMAIN}?success=true`,
+            cancel_url: `${YOUR_DOMAIN}?canceled=true`,
+        });
+        res.json({ url: session.url });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };

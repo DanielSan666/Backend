@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors"; // Importa cors
 
 import authRoutes from './routes/auth.routes.js'
+import paymentRoutes from './routes/payment.routes.js'
 
 const app = express();
 
@@ -18,5 +19,6 @@ app.use(cors({
 }));
 
 app.use('/api', authRoutes);
+app.use('/api', paymentRoutes)
 
 export default app;

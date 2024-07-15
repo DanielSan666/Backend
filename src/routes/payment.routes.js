@@ -1,8 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const paymentController = require('../controllers/payment.controller'); // Asegúrate de importar correctamente el controlador
+import { Router } from "express";
+import { createCheckoutSession } from "../controllers/payment.controller.js";
 
-// Ruta para crear una sesión de checkout
-router.post('/create-checkout-session', paymentController.createCheckoutSession);
+const router = Router()
 
-module.exports = router;
+router.post("/create-checkout-session", createCheckoutSession);
+
+export default router
