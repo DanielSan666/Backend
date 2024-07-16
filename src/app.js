@@ -5,6 +5,7 @@ import cors from "cors"; // Importa cors
 
 import authRoutes from './routes/auth.routes.js'
 import paymentRoutes from './routes/payment.routes.js'
+import coursesRouter from './routes/course.routes.js'
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(cors({
 }));
 
 app.use('/api', authRoutes);
-app.use('/api', paymentRoutes)
+app.use('/api', paymentRoutes);
+app.use('/api', coursesRouter)
 
 export default app;

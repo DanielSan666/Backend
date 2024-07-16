@@ -15,9 +15,20 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true
-  }
+  },
+  courses: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Course'  // Referencia al modelo de cursos si existe
+    }
+  ],
+  stripeCustomerId: {
+    type: String  // ID del cliente de Stripe si necesitas almacenarlo
+  },
 }, {
-  timestamps:true
-})
+  timestamps: true
+});
+
+
 
 export default mongoose.model('User', userSchema)
