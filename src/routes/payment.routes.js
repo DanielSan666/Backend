@@ -1,8 +1,10 @@
-import { Router } from "express";
-import { createCheckoutSession } from "../controllers/payment.controller.js";
+// src/routes/payment.routes.js
 
-const router = Router()
+import { Router } from 'express';
+import { processPayment } from '../controllers/payment.controller.js';
 
-router.post("/create-checkout-session", createCheckoutSession);
+const router = Router();
 
-export default router
+router.post('/process-payment', processPayment);
+
+export default router;

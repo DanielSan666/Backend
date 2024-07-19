@@ -15,6 +15,7 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
     "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -27,6 +28,7 @@
     "method-override": "^3.0.0",
     "mongoose": "^8.4.4",
     "morgan": "^1.10.0",
+    "square": "^37.1.1",
     "stripe": "^16.2.0"
   },
   "devDependencies": {

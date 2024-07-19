@@ -3,35 +3,34 @@ import bycrypt from 'bcrypt';
 import { createAccesToken } from "../libs/jwt.js";
 
 
-export const register = async(req, res) => {
-    const {email, password, username} = req.body
+export const register = async (req, res) => {
+    const { email, password, username, role } = req.body;
 
-    try{
+    try {
+        const passwordHash = await bcrypt.hash(password, 10);
 
-        const passwordHash =  await bycrypt.hash(password, 10)
-
-        const newUser =  new User({
+        const newUser = new User({
             username,
             email,
             password: passwordHash,
+            role
         });
 
         const userSaved = await newUser.save();
-        const token = await createAccesToken({id: userSaved._id})
+        const token = await createAccesToken({ id: userSaved._id });
 
-        
-    res.cookie('token', token) 
+        res.cookie('token', token);
         res.json({
             id: userSaved._id,
             username: userSaved.username,
             email: userSaved.email,
+            role: userSaved.role,
             createdAt: userSaved.createdAt,
             updatedAt: userSaved.updatedAt,
-        })
-    } catch(error){
-        res.status(500).json({ message: error.message})
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
-    
 };
 
 export const login = async(req, res) => {
