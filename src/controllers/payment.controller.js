@@ -1,5 +1,5 @@
 // src/controllers/payment.controller.js
-
+import stripe from 'stripe';
 import { Client, Environment } from 'square';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
@@ -10,6 +10,8 @@ const client = new Client({
   environment: Environment.Sandbox, // Usa Environment.Production para producción
   accessToken: process.env.SQUARE_ACCESS_TOKEN,
 });
+
+const stripeSecretKey = process.env.STRIPE_API_KEY
 
 export const processPayment = async (req, res) => {
   const { nonce } = req.body;
@@ -30,6 +32,7 @@ export const processPayment = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
 
 
 export const agregarPedidoTarjeta = async (req, res) => {
@@ -58,5 +61,35 @@ export const agregarPedidoTarjeta = async (req, res) => {
         console.log(data)
         console.error('Error al procesar el pago:', error);
         res.status(500).json({ error: 'Hubo un error al procesar el pago' });
+    }
+};
+
+
+export const createCheckoutSession = async (req, res) => {
+    const { course, amountPago } = req.body;
+    try {
+        const YOUR_DOMAIN = 'https://expo.dev/@danielsan98/curso';
+        
+        const session = await stripe(stripeSecretKey).checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [
+                {
+                    price_data: {
+                        currency: 'mxn',
+                        product_data: {
+                            name: course,
+                        },
+                        unit_amount: amountPago * 100,
+                    },
+                    quantity: 1,
+                },
+            ],
+            mode: 'payment',
+            success_url: `${YOUR_DOMAIN}/curso?course=${course}&success=true`,
+            cancel_url: `${YOUR_DOMAIN}/curso?course=${course}&canceled=true`,
+        });
+        res.json({ url: session.url });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
