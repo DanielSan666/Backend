@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import bycrypt from 'bcrypt';
 import { createAccesToken } from "../libs/jwt.js";
+import bcrypt from 'bcrypt'; 
 
 
 export const register = async (req, res) => {
@@ -29,6 +30,7 @@ export const register = async (req, res) => {
             updatedAt: userSaved.updatedAt,
         });
     } catch (error) {
+        console.error('Register error:', error);
         res.status(500).json({ message: error.message });
     }
 };

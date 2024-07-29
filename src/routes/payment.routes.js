@@ -1,12 +1,9 @@
-// src/routes/payment.routes.js
+import express from 'express';
+import { createPayment } from '../controllers/payment.controller.js';
 
-import { Router } from 'express';
-import { agregarPedidoTarjeta, createCheckoutSession, processPayment } from '../controllers/payment.controller.js';
+const router = express.Router();
 
-const router = Router();
-
-router.post('/process-payment', processPayment);
-router.post('/payment-clip', agregarPedidoTarjeta)
-router.post('/payment-stripe', createCheckoutSession)
+// Ruta para crear un pago
+router.post('/create-payment', createPayment);
 
 export default router;
