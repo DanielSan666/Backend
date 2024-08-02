@@ -15,7 +15,7 @@ app.use(cookieParser());
 
 // Configura CORS para permitir todas las solicitudes
 app.use(cors({
-    origin: 'http://localhost:8081', // La URL de tu frontend
+    origin: 'http://localhost:3000', // La URL de tu frontend
     credentials: true 
 }));
 
