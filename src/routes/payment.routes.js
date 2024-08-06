@@ -1,9 +1,8 @@
-import express from 'express';
-import { createPayment } from '../controllers/payment.controller.js';
+import { Router } from 'express';
+import { initiateStripePayment } from '../controllers/payment.controller.js';
 
-const router = express.Router();
+const router = Router();
 
-// Ruta para crear un pago
-router.post('/create-payment', createPayment);
+router.post('/payment-stripe', initiateStripePayment);
 
 export default router;

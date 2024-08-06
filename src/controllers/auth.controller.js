@@ -1,8 +1,6 @@
 import User from "../models/user.model.js";
 import bycrypt from 'bcrypt';
 import { createAccesToken } from "../libs/jwt.js";
-import bcrypt from 'bcrypt'; 
-
 
 export const register = async (req, res) => {
     const { email, password, username, role } = req.body;
@@ -73,17 +71,24 @@ export const logout = (req, res) => {
 }
 
 export const profile = async (req, res) => {
-    const userFound = await User.findById(req.user.id)
-
-    if (!userFound) return res.status(400).json({ message: "User not found "});
-
-    return res.json({
+    try {
+      const userFound = await User.findById(req.user.id).populate('courses'); // Populate if courses are references to another model
+  
+      if (!userFound) return res.status(400).json({ message: "User not found" });
+  
+      return res.json({
         id: userFound._id,
         username: userFound.username,
         email: userFound.email,
-        courses: userFound.courses,
+        role: userFound.role, // Incluye el campo `role` en la respuesta
+        courses: userFound.courses, // Asegúrate de que este campo esté correctamente poblado
         createdAt: userFound.createdAt,
         updatedAt: userFound.updatedAt
-    })
-    res.send('profile')
-}
+      });
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  };
+  
+  

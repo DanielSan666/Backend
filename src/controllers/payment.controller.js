@@ -1,29 +1,32 @@
-import { Client, Environment } from 'square';
+import Stripe from 'stripe';
 
-// Configura las credenciales de Square para producción
-const client = new Client({
-  accessToken: process.env.SQUARE_ACCESS_TOKEN_PRODUCTION,
-  environment: Environment.Production, // Cambia a Environment.Production
-});
+const stripe = new Stripe('sk_test_51PbG5LGXyx345BqjeFooVNFL6ta9HriQqcFToPZ2oHQNEF1G2hY12t1nG1KLAgvQ6pYXmUbPObzvoJpdgRDaEoW800IKM9o8pY');
 
-const paymentsApi = client.paymentsApi;
-
-export const createPayment = async (req, res) => {
-  const { sourceId, amount, idempotencyKey } = req.body;
-
+export const initiateStripePayment = async (req, res) => {
+  const { course, amount, courseId } = req.body; // Add courseId here
   try {
-    const response = await paymentsApi.createPayment({
-      sourceId: sourceId,
-      amountMoney: {
-        amount: amount, // La cantidad en centavos
-        currency: 'USD',
-      },
-      idempotencyKey: idempotencyKey,
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'mxn',
+            product_data: {
+              name: course,
+            },
+            unit_amount: amount * 100, // Amount in cents
+          },
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: `http://localhost:3000/course/${courseId}?status=success`,
+      cancel_url: `http://localhost:3000/course/${courseId}?status=cancel`,
     });
 
-    res.status(200).json(response.result);
+    res.json({ url: session.url });
   } catch (error) {
-    console.error('Error creating payment:', error.response ? error.response.body : error.message);
-    res.status(500).json({ error: error.message });
+    console.error('Error creating Stripe session:', error);
+    res.status(500).json({ error: 'Failed to create Stripe session' });
   }
 };

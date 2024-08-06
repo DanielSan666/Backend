@@ -13,11 +13,8 @@ const courseSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  image: {
-    type: String,
-    required: false  // Puedes cambiarlo a true si la imagen es obligatoria
-  }
-}, {
+}, 
+{
   timestamps: true
 });
 
