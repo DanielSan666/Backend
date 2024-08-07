@@ -13,10 +13,14 @@ const courseSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-}, 
-{
+  amount: {
+    type: Number,
+    required: true
+  }
+}, {
   timestamps: true
 });
 
 const Course = mongoose.model('Course', courseSchema);
+
 export default Course;

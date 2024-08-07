@@ -22,12 +22,11 @@ export const getCourseById = async (req, res) => {
   }
 };
 
-
 // Crear un curso
 export const createCourse = async (req, res) => {
-  const { title, description, duration } = req.body;
+  const { title, description, duration, amount } = req.body;
   try {
-    const newCourse = new Course({ title, description, duration });
+    const newCourse = new Course({ title, description, duration, amount });
     await newCourse.save();
     res.status(201).json(newCourse);
   } catch (error) {
@@ -38,11 +37,11 @@ export const createCourse = async (req, res) => {
 // Actualizar un curso
 export const updateCourse = async (req, res) => {
   const { id } = req.params;
-  const { title, description, duration } = req.body;
+  const { title, description, duration, amount } = req.body;
   try {
     const updatedCourse = await Course.findByIdAndUpdate(
       id,
-      { title, description, duration },
+      { title, description, duration, amount },
       { new: true, runValidators: true }
     );
     if (!updatedCourse) return res.status(404).json({ message: 'Course not found' });
