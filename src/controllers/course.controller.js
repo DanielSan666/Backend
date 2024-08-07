@@ -10,6 +10,19 @@ export const getCourses = async (req, res) => {
   }
 };
 
+// Obtener un curso por ID
+export const getCourseById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const course = await Course.findById(id);
+    if (!course) return res.status(404).json({ message: 'Course not found' });
+    res.json(course);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 // Crear un curso
 export const createCourse = async (req, res) => {
   const { title, description, duration } = req.body;
