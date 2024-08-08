@@ -1,0 +1,62 @@
+.edit-course-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.edit-course-container h2 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.edit-course-container .form-group {
+  margin-bottom: 15px;
+}
+
+.edit-course-container label {
+  display: block;
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+.edit-course-container input[type="text"],
+.edit-course-container input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 1.1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.edit-course-container .button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.edit-course-container .button {
+  padding: 10px;
+  font-size: 1.2em;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 48%;
+}
+
+.edit-course-container .button:hover {
+  background-color: #0056b3;
+}
+
+.edit-course-container .cancel-button {
+  background-color: #dc3545;
+}
+
+.edit-course-container .cancel-button:hover {
+  background-color: #c82333;
+}
