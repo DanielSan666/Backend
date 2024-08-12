@@ -36,12 +36,13 @@ const EditCourse = () => {
     e.preventDefault();
     try {
       await axios.put(`http://localhost:5000/api/courses/${courseId}`, course);
-      navigate(`/courses/${courseId}`); // Navigate to the course page after editing
+      navigate(`/course/${courseId}`); // Navega a la página del curso después de la edición
     } catch (error) {
       console.error('Error updating course:', error);
       setError('Failed to update course');
     }
   };
+  
 
   const handleCancel = () => {
     navigate(-1); // Go back to the previous page
