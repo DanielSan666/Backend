@@ -15,7 +15,7 @@ app.use(cookieParser());
 
 // Configura CORS para permitir todas las solicitudes
 app.use(cors({
-    origin: '*', // La URL de tu frontend
+    origin: 'https://backend-frontend-nine.vercel.app', // La URL de tu frontend
     credentials: true 
 }));
 
