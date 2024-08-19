@@ -11,13 +11,14 @@ const app = express();
 
 app.use(morgan('dev'))
 app.use(express.json());
+app.use(cors());
 app.use(cookieParser());
 
 // Configura CORS para permitir todas las solicitudes
-app.use(cors({
-    origin: 'http://localhost:3000', // La URL de tu frontend
-    credentials: true 
-}));
+app.get("/", (req, res) => {
+    res.send("Todavia Funciona :)");
+  });
+  
 
 app.use('/api', authRoutes);
 app.use('/api', paymentRoutes);
