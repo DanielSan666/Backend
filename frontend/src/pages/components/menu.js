@@ -11,7 +11,7 @@ function NavigationMenu() {
 
     const handleLogout = async () => {
         try {
-            await axios.post('http://localhost:5000/api/logout', {}, { withCredentials: true });
+            await axios.post('https://backend-course-silk.vercel.app/api/logout', {}, { withCredentials: true });
             Swal.fire({
                 icon: 'success',
                 title: 'Logged Out',

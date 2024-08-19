@@ -23,7 +23,7 @@ function AddCourse({ onCourseAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/courses', formData, {
+      const response = await axios.post('https://backend-course-silk.vercel.app/api/courses', formData, {
         withCredentials: true
       });
       if (onCourseAdded) {

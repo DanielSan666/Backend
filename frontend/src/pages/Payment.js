@@ -9,7 +9,7 @@ const Payment = ({ course, amount }) => {
   useEffect(() => {
     const handleCheckoutStripe = async () => {
       try {
-        const response = await axios.post('http://localhost:5000/api/payment-stripe', { course, amount });
+        const response = await axios.post('https://backend-course-silk.vercel.app/api/payment-stripe', { course, amount });
         const session = response.data;
 
         if (session && session.url) {

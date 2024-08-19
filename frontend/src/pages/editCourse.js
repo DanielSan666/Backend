@@ -14,7 +14,7 @@ const EditCourse = () => {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/courses/${courseId}`);
+        const response = await axios.get(`https://backend-course-silk.vercel.app/api/courses/${courseId}`);
         setCourse(response.data);
       } catch (error) {
         console.error('Error fetching course:', error);
@@ -35,7 +35,7 @@ const EditCourse = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/courses/${courseId}`, course);
+      await axios.put(`https://backend-course-silk.vercel.app//courses/${courseId}`, course);
       navigate(`/course/${courseId}`); // Navega a la página del curso después de la edición
     } catch (error) {
       console.error('Error updating course:', error);

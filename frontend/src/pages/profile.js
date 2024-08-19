@@ -12,7 +12,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/profile', { withCredentials: true });
+        const response = await axios.get('https://backend-course-silk.vercel.app/api/profile', { withCredentials: true });
         setProfile(response.data);
       } catch (error) {
         setError('Failed to load profile');

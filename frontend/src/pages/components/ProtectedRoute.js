@@ -12,7 +12,7 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        await axios.get('http://localhost:5000/api/profile', {
+        await axios.get('https://backend-course-silk.vercel.app/api/profile', {
           withCredentials: true
         });
         setIsAuthenticated(true);

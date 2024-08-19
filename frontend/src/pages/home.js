@@ -16,7 +16,7 @@ const Home = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/courses', {
+        const response = await axios.get('https://backend-course-silk.vercel.app/api/courses', {
           withCredentials: true
         });
         setCourses(response.data);
@@ -27,7 +27,7 @@ const Home = () => {
 
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/profile', {
+        const response = await axios.get('https://backend-course-silk.vercel.app/api/profile', {
           withCredentials: true
         });
         setUserRole(response.data.role);

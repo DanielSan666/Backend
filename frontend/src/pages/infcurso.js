@@ -17,7 +17,7 @@ const InfCurso = () => {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/courses/${courseId}`);
+        const response = await axios.get(`https://backend-course-silk.vercel.app/api/courses/${courseId}`);
         setCourse(response.data);
       } catch (error) {
         console.error('Error fetching course:', error);
@@ -29,7 +29,7 @@ const InfCurso = () => {
 
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/profile', {
+        const response = await axios.get('https://backend-course-silk.vercel.app/api/profile', {
           withCredentials: true
         });
         setUserRole(response.data.role);
@@ -48,7 +48,7 @@ const InfCurso = () => {
 
   const handlePayment = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/payment-stripe', {
+      const response = await axios.post('https://backend-course-silk.vercel.app/payment-stripe', {
         course: course.title,
         amount: course.amount,
         courseId
@@ -66,7 +66,7 @@ const InfCurso = () => {
 
   const handleDeleteCourse = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/courses/${courseId}`);
+      await axios.delete(`https://backend-course-silk.vercel.app/api/courses/${courseId}`);
       Swal.fire({
         title: 'Curso Eliminado!',
         text: 'El curso ha sido eliminado exitosamente.',

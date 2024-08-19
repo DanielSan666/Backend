@@ -23,7 +23,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/register', formData, {
+      const response = await axios.post('https://backend-course-silk.vercel.app/api/register', formData, {
         withCredentials: true // Esto permite el uso de cookies
       });
       Swal.fire({
