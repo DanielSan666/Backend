@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import bcrypt from 'bcrypt'
 import { createAccesToken } from "../libs/jwt.js";
+import { NODE_ENV } from "../config.js";
 
 export const register = async (req, res) => {
     const { email, password, username, role } = req.body;
@@ -50,7 +51,7 @@ export const login = async(req, res) => {
         
     res.cookie('token', token,{
         httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: NODE_ENV === 'production',
     maxAge: 3600000 
     }) 
         res.json({
