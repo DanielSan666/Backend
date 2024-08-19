@@ -12,13 +12,15 @@ function Login() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        
         try {
             const response = await axios.post('http://localhost:5000/api/login', { email, password }, { withCredentials: true });
+           
             if (response.data.token) {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Login Successful',
-                    text: 'You have successfully logged in!',
+                    title: 'Inicio de sesión exitoso',
+                    text: '¡Has iniciado sesión correctamente!',
                     showConfirmButton: false,
                     timer: 2000,
                 }).then(() => {

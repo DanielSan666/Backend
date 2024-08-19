@@ -53,36 +53,12 @@ const InfCurso = () => {
         amount: course.amount,
         courseId
       });
-      
-      window.location.href = response.data.url; // Redirige a Stripe para el pago
-  
-      // Esperar el pago
-      const stripeResponse = await axios.post('http://localhost:5000/api/payment-stripe/confirm', {
-        paymentIntentId: response.data.paymentIntentId
-      });
-  
-      // Si el pago es exitoso, agregar el curso al usuario
-      if (stripeResponse.data.status === 'succeeded') {
-        await axios.patch(`http://localhost:5000/api/courses/${courseId}`, { userId: user.id });
-        
-        Swal.fire({
-          title: 'Pago Exitoso!',
-          text: 'Tu pago se ha realizado con éxito y el curso ha sido agregado a tu perfil.',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500
-        }).then(() => {
-          navigate('/profile'); // Navegar al perfil del usuario
-        });
-      } else {
-        throw new Error('El pago no fue exitoso');
-      }
+      window.location.href = response.data.url; // Redirect to Stripe for payment
     } catch (error) {
-      console.error('Error al iniciar el pago con Stripe:', error);
-      setError('Error al iniciar el pago');
+      console.error('Error initiating Stripe payment:', error);
+      setError('Failed to initiate payment');
     }
   };
-  
 
   const handleEditCourse = () => {
     navigate(`/editcourse/${courseId}`); // Navigate to the edit course page
